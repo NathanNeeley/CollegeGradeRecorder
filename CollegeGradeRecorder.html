@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<title>College Grade Recorder</title>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Graduate|Mr+Dafoe|Permanent+Marker" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:00" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+</head>
+
+<body>
+    <h1 style="border: 15px solid green; background-color: green; text-align: center">College Grade Recorder</h1>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table align="center">
+            <tr>
+                <th><h2>Grade</h2></th>
+                <th><h2>Grade Points<h2></th>
+                <th><h2>Hours</h2></th>
+                <th><h2>Delete</h2></th>
+            </tr>
+            <tr ng-repeat="x in input track by $index" style="font-size=40px; text-align: center">
+                <td width="300" ng-model="singleGrade">{{ x }}</td>
+                <td width="300">
+                    <div ng-switch="x" name="number">
+                        <div ng-switch-when="A">4.00</div>
+                        <div ng-switch-when="A-">3.70</div>
+                        <div ng-switch-when="B+">3.33</div>
+                        <div ng-switch-when="B">3.00</div>
+                        <div ng-switch-when="B-">2.67</div>
+                        <div ng-switch-when="C+">2.33</div>
+                        <div ng-switch-when="C">2.00</div>
+                        <div ng-switch-when="C-">1.67</div>
+                        <div ng-switch-when="F">0.00</div>
+                    </div>
+                    
+                </td>
+                <td width="300"><input type="number" ng-model="selectHours" placeholder="Hours" ng-hide="{{!x}}" style="width: 100px; text-align: center" required></td>
+                <td width="300"><span ng-click="removeClass($index)" ng-hide="{{!x}}" style="font-size=40px">x</span></td>
+            </tr><br><br>
+        </table>
+        <br>
+        <HR SIZE="1"><br><br>
+        <div style="text-align: center">
+            <select ng-model="selectGrades" ng-options="grade for grade in grades" style="width: 100px" required></select>
+            <br><br>
+            <button ng-click="addClass()" style="width: 100px; background-color: black; color: white">Add</button>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope){
+            $scope.grades = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "F"];
+            $scope.input = [""];
+            $scope.selectHours = [""];
+            $scope.addClass = function() {
+                $scope.input.push($scope.selectGrades);
+            }
+            $scope.removeClass = function(x)  {
+                $scope.input.splice(x, 1);
+            }
+            $scope.calculateGPA = function() {
+                $scope.selectHours.push($scope.hours);
+            }
+        })
+        
+        
+    </script>
+
+</body>
+</html>
+
+    
